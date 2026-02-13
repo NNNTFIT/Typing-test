@@ -55,7 +55,7 @@ function splitText() {
 
         if (index < words.length - 1) {
             const space = document.createElement("span");
-            space.innerHTML = "&nbsp;"; 
+            space.innerHTML = " "; 
             space.classList.add("char");
             display.appendChild(space); 
             s.push(space);
@@ -129,9 +129,7 @@ inp.addEventListener("input", () => {
         const character = valueActive[index]; 
         
         let charAtive = span.innerText;
-        if (charAtive.charCodeAt(0) === 160){
-            charAtive = " ";
-        } 
+
 
         if (character == null) {
             span.classList.remove("true");
@@ -181,5 +179,5 @@ inp.addEventListener("input", () => {
 
 
 
-randomText()
+randomText();
 splitText();
