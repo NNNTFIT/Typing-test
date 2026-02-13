@@ -178,5 +178,8 @@ inp.addEventListener("input", () => {
     }
 });
 
+
+
+
 randomText()
 splitText();
