@@ -76,6 +76,7 @@ function start() {
     inp.value = "";
     inp.focus();
     splitText();
+
 }
 
 function reset() {
@@ -86,6 +87,7 @@ function reset() {
     inp.value = "";
     randomText()
     splitText(); 
+
 }
 
 document.addEventListener("keydown", (event) => {
@@ -132,18 +134,18 @@ inp.addEventListener("input", () => {
         } 
 
         if (character == null) {
-            span.classList.remove("correct");
-            span.classList.remove("incorrect");
+            span.classList.remove("true");
+            span.classList.remove("false");
             span.classList.remove("active");
         } else { 
             if (character === charAtive) {
-                span.classList.add("correct");
-                span.classList.remove("incorrect");
+                span.classList.add("true");
+                span.classList.remove("false");
                 span.classList.remove("active");
                 countTrue++;
             } else {
-                span.classList.remove("correct");
-                span.classList.add("incorrect");
+                span.classList.remove("true");
+                span.classList.add("false");
                 span.classList.remove("active");
             }
         }
@@ -169,6 +171,9 @@ inp.addEventListener("input", () => {
             alert(`Thời gian: ${hour}:${minutes}:${second}\nWPM: ${wpm}\nĐộ chính xác: ${accuracy}%`);
             reset();
         },200)
+
+
+
 
     }
 });
