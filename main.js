@@ -7,23 +7,22 @@ let text = "";
 const listText = [
     "Đố anh bắt được em.",
     "Hôm nay trời nhẹ lên cao, tôi buồn không hiểu vì sao tôi buồn.",
-    "Hnay t mệt vl =)). Học thì nhìu mà não t thì lag nhẹ. Cr thì seen mà kh rep, chắc mạng yếu chứ kh phải do t đâu ha? =)). Thui kệ, đời còn dài, trai còn nhìu, buồn chi cho mệt :v", 
     "Trăm năm trong cõi người ta, chữ tài chữ mệnh khéo là ghét nhau.",
     "Học, học nữa, học mãi.",
     "Deadline giống như crush. Lúc chưa tới thì không quan tâm. Tới sát bên rồi mới thấy hoảng :)))",
-    "Học hành như cá kho tiêu, Kho nhiều thì mặn, học nhiều thì ngu.",
+    "Học hành như cá kho tiêu, kho nhiều thì mặn, học nhiều thì ngu.",
     "Sóng bắt đầu từ gió, gió bắt đầu từ đâu, em cũng không biết nữa, khi nào ta yêu nhau.",
     "Công cha như núi Thái Sơn, nghĩa mẹ như nước trong nguồn chảy ra.",
-    "Bầu ơi thương lấy bí cùng, Mai sau có lúc nấu chung một nồi.",
+    "Bầu ơi thương lấy bí cùng, mai sau có lúc nấu chung một nồi.",
     "Có công mài sắt, có ngày nên kim.",
-    "Ban đầu: Làm từ từ cũng kịp mà =)). Gần tới hạn: A ơi cho e xin nộp trễ được hong ạ :)))",
-    "Ban ngày: Để tối làm. Ban đêm: Để xíu làm. 23h59p: a ơi e xin nộp bài trễ ạaa"
+    "Có chí thì nên, có tiền thì khỏe."
 ];
 
 
 
 let s = []; 
 let checkStart = false;
+let checkEnd = false;
 let startTime = null;
 
 
@@ -63,7 +62,7 @@ function splitText() {
         }
     });
 
-    if (s.length > 0) {
+    if (s.length > 0 && checkStart) {
         s[0].classList.add("active");
     }
 }
@@ -89,6 +88,17 @@ function reset() {
     splitText(); 
 }
 
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {        
+        if (!checkStart) {
+            start();
+        }
+    } 
+    else if (event.key === "Escape") {
+        reset(); 
+    }
+});
+
 startBtn.addEventListener("click", () => {
     if (!checkStart){
         start();
@@ -97,7 +107,6 @@ startBtn.addEventListener("click", () => {
         reset();
     }
 });
-
 
 
 display.addEventListener("click", () => {
@@ -109,8 +118,8 @@ inp.addEventListener("input", () => {
     if (!checkStart){
         return;
     }
-    
 
+    clearTimeout(checkEnd)
 
     const valueActive = inp.value.split(""); 
     let countTrue = 0;
@@ -144,23 +153,23 @@ inp.addEventListener("input", () => {
         }
     });
 
-    if (valueActive.length === s.length) {
+    if (valueActive.length >= s.length) {
+        checkEnd = setTimeout(() =>{
         const endTime = new Date();
         const time = endTime - startTime;
         let second = Math.floor(time / 1000);
         let minutes = Math.floor(second / 60);
         let hour = Math.floor(minutes / 60);
+        second = second % 60;
         second = second<10 ? "0"+second : second;
         minutes = minutes<10 ? "0"+minutes : minutes;
         hour = hour<10 ? "0"+hour : hour;
         const wpm = Math.round((inp.value.length / 5) / (time /1000 / 60)); 
         const accuracy = Math.round((countTrue / s.length) * 100);
-
-        setTimeout(() => {
             alert(`Thời gian: ${hour}:${minutes}:${second}\nWPM: ${wpm}\nĐộ chính xác: ${accuracy}%`);
             reset();
-        }, 100);
-        checkStart = false;
+        },200)
+
     }
 });
 
